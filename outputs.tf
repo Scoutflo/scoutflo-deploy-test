@@ -46,24 +46,24 @@ output "desired_nodes" {
   value       = local.desired_size
 }
 
-output "public_nats_ips" {
-  description = "Public NATS IPs"
-  value       = aws_instance.nats[*].public_ip
+output "public_nat_ips" {
+  description = "Public NAT IPs"
+  value       = try(module.vpc.nat_public_ips, [])
 }
 
-output "private_nats_ips" {
-  description = "Private NATS IPs"
-  value       = aws_instance.nats[*].private_ip
+output "private_nat_ips" {
+  description = "Private NAT IPs"
+  value       = try(module.vpc.nat_private_ips, [])
 }
 
 output "k8s_version" {
   description = "Kubernetes version"
-  value       = aws_eks_cluster.eks_cluster.version
+  value       = module.eks.cluster_version
 }
 
 output "cidr_range" {
   description = "CIDR Range"
-  value       = aws_vpc.main.cidr_block
+  value       = module.vpc.vpc_cidr_block
 }
 
 output "aws_account_id" {
@@ -71,12 +71,7 @@ output "aws_account_id" {
   value       = data.aws_caller_identity.current.account_id
 }
 
-output "vpc_name" {
-  description = "VPC Name"
-  value       = aws_vpc.main.tags["Name"]
-}
-
 output "subnet_ids" {
   description = "Subnet IDs"
-  value       = aws_subnet.subnets[*].id
+  value       = module.vpc.private_subnets
 }
