@@ -46,16 +46,6 @@ output "desired_nodes" {
   value       = local.desired_size
 }
 
-output "public_nat_ips" {
-  description = "Public NAT IPs"
-  value       = try(module.vpc.nat_public_ips)
-}
-
-output "private_nat_ips" {
-  description = "Private NAT IPs"
-  value       = try(module.vpc.nat_private_nat_ips)
-}
-
 output "k8s_version" {
   description = "Kubernetes version"
   value       = module.eks.cluster_version
