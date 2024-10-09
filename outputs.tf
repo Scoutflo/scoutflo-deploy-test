@@ -23,7 +23,7 @@ output "cluster_name" {
 
 output "vpc_name" {
   description = "AWS VPC Name"
-  value       = data.aws_vpc.existing.tags["Name"]
+  value       = module.vpc.name
 }
 
 output "instance_type" {
@@ -48,12 +48,12 @@ output "desired_nodes" {
 
 output "public_nat_ips" {
   description = "Public NAT IPs"
-  value       = try(data.aws_nat_gateway.existing[*].public_ip, [])
+  value       = try(module.vpc.nat_public_ips)
 }
 
 output "private_nat_ips" {
   description = "Private NAT IPs"
-  value       = try(data.aws_nat_gateway.existing[*].private_ip, [])
+  value       = try(module.vpc.nat_private_nat_ips)
 }
 
 output "k8s_version" {
@@ -63,7 +63,7 @@ output "k8s_version" {
 
 output "cidr_range" {
   description = "CIDR Range"
-  value       = data.aws_vpc.existing.cidr_block
+  value       = module.vpc.vpc_cidr_block
 }
 
 output "aws_account_id" {
@@ -73,15 +73,15 @@ output "aws_account_id" {
 
 output "subnet_ids" {
   description = "Subnet IDs"
-  value       = data.aws_subnets.private.ids
+  value       = module.vpc.private_subnets
 }
 
 output "cluster_ingress_endpoint" {
   description = "Ingress endpoint for EKS cluster"
-  value       = try(module.eks.cluster_endpoint, "")
+  value       = try(module.eks.cluster_endpoint)
 }
 
 output "cluster_egress_endpoint" {
   description = "Egress endpoint for EKS cluster"
-  value       = try(module.eks.cluster_endpoint, "")
+  value       = try(module.eks.cluster_endpoint)
 }
