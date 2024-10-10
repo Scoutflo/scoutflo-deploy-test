@@ -5,7 +5,14 @@ provider "aws" {
   region = var.region
 }
 
-data "aws_availability_zones" "available" {}
+# Filter out local zones, which are not currently supported 
+# with managed node groups
+data "aws_availability_zones" "available" {
+  filter {
+    name   = "opt-in-status"
+    values = ["opt-in-not-required"]
+  }
+}
 
 data "aws_caller_identity" "current" {}
 
@@ -24,7 +31,7 @@ resource "random_string" "suffix" {
 
 module "vpc" {
   source  = "terraform-aws-modules/vpc/aws"
-  version = "5.0.0"
+  version = "5.8.1"
 
   name = "scoutflo-vpc-${random_string.suffix.result}"
 
@@ -51,7 +58,7 @@ module "vpc" {
 
 module "eks" {
   source  = "terraform-aws-modules/eks/aws"
-  version = "20.24.3"
+  version = "20.8.5"
 
   cluster_name    = local.cluster_name
   cluster_version = "1.29"
@@ -97,7 +104,7 @@ data "aws_iam_policy" "ebs_csi_policy" {
 
 module "irsa-ebs-csi" {
   source  = "terraform-aws-modules/iam/aws//modules/iam-assumable-role-with-oidc"
-  version = "5.30.0"
+  version = "5.39.0"
 
   create_role                   = true
   role_name                     = "AmazonEKSTFEBSCSIRole-${module.eks.cluster_name}"
