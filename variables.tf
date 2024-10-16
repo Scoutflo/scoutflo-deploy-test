@@ -10,7 +10,7 @@ variable "region" {
 variable "cluster_name" {
   description = "Cluster name"
   type = string
-  default = "deploy-eks-test-1"
+  default = "deploy-eks-test-2"
 }
 
 variable "instance_type" {
