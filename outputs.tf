@@ -77,7 +77,7 @@ output "cluster_egress_endpoint" {
 }
 
 output "nginx_ingress_controller_ip" {
-  value       = helm_release.nginx_ingress.status[0].load_balancer[0].ingress[0].ip
+  value       = length(helm_release.nginx_ingress.status) > 0 && length(helm_release.nginx_ingress.status[0].load_balancer) > 0 ? helm_release.nginx_ingress.status[0].load_balancer[0].ingress[0].ip : "Not Available"
   description = "The IP address of the NGINX Ingress Controller LoadBalancer."
 }
 
