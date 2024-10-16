@@ -31,7 +31,7 @@ resource "random_string" "suffix" {
 
 module "vpc" {
   source  = "terraform-aws-modules/vpc/aws"
-  version = "5.0.0"
+  version = "3.19.0"
 
   name = "scoutflo-vpc-${random_string.suffix.result}"
 
@@ -60,7 +60,7 @@ module "vpc" {
 
 module "eks" {
   source  = "terraform-aws-modules/eks/aws"
-  version = "19.5.1"
+  version = "18.31.2"
 
   cluster_name    = local.cluster_name
   cluster_version = "1.29"
@@ -106,7 +106,7 @@ data "aws_iam_policy" "ebs_csi_policy" {
 
 module "irsa-ebs-csi" {
   source  = "terraform-aws-modules/iam/aws//modules/iam-assumable-role-with-oidc"
-  version = "5.3.0"
+  version = "5.9.2"
 
   create_role                   = true
   role_name                     = "AmazonEKSTFEBSCSIRole-${module.eks.cluster_name}"
