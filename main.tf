@@ -157,3 +157,33 @@ resource "aws_eks_addon" "coredns" {
   }
   depends_on = [module.eks]
   }
+
+  # NGINX Ingress Controller Module
+ module "nginx_ingress" {
+  source  = "terraform-aws-modules/eks/aws//modules/nginx-ingress"
+  version = "3.0.0" # Check for the latest version
+
+  cluster_name = local.cluster_name
+  vpc_id       = module.vpc.vpc_id
+  subnet_ids   = module.vpc.public_subnets
+
+  service_type = "LoadBalancer"
+  enable_ssl   = true
+
+  # Optional: Customize other configurations as needed
+}
+
+# Cert Manager Module
+module "cert_manager" {
+  source  = "terraform-aws-modules/eks/aws//modules/cert-manager"
+  version = "1.1.1" # Check for the latest version
+
+  cluster_name = local.cluster_name
+  vpc_id       = module.vpc.vpc_id
+  subnet_ids   = module.vpc.public_subnets
+
+  install_crds = true
+
+  # Optional: Customize other configurations as needed
+}
+
