@@ -119,6 +119,7 @@ resource "aws_eks_addon" "ebs-csi" {
   cluster_name             = module.eks.cluster_name
   addon_name               = "aws-ebs-csi-driver"
   addon_version            = "v1.27.0-eksbuild.1"
+  resolve_conflicts        = "OVERWRITE"
   service_account_role_arn = module.irsa-ebs-csi.iam_role_arn
   tags = {
     "eks_addon" = "ebs-csi"
@@ -129,6 +130,7 @@ resource "aws_eks_addon" "kube-proxy" {
   cluster_name             = module.eks.cluster_name
   addon_name               = "kube-proxy"
   addon_version            = "v1.29.0-eksbuild.1"
+  resolve_conflicts        = "OVERWRITE"
   tags = {
     "eks_addon" = "kube-proxy"
     "terraform" = "true"
@@ -138,6 +140,7 @@ resource "aws_eks_addon" "vpc-cni" {
   cluster_name             = module.eks.cluster_name
   addon_name               = "vpc-cni"
   addon_version            = "v1.16.0-eksbuild.1"
+  resolve_conflicts        = "OVERWRITE"
   tags = {
     "eks_addon" = "vpc-cni"
     "terraform" = "true"
@@ -146,7 +149,8 @@ resource "aws_eks_addon" "vpc-cni" {
 resource "aws_eks_addon" "coredns" {
   cluster_name             = module.eks.cluster_name
   addon_name               = "coredns"
-  addon_version            = "v1.10.1-eksbuild.4"
+  addon_version            = "v1.10.1-eksbuild.2"
+  resolve_conflicts        = "OVERWRITE"
   tags = {
     "eks_addon" = "coredns"
     "terraform" = "true"
