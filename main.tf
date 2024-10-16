@@ -83,12 +83,12 @@ module "eks" {
 
   eks_managed_node_group_defaults = {
     ami_type = "AL2_x86_64"
-
+    name_prefix = "${local.cluster_name}-nodegroup-" # Ensure this is short enough
   }
 
   eks_managed_node_groups = {
     one = {
-      name = "node-group-1-local.cluster_name"
+      name = "node-group-1"
 
       instance_types = [local.instance_type]
 
