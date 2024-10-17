@@ -82,8 +82,9 @@ output "nginx_ingress_controller_ip" {
   description = "The IP address of the NGINX Ingress Controller LoadBalancer."
 }
 */
-
+/*
 output "cert_manager_status" {
   value       = helm_release.cert_manager.status
   description = "Status of the Cert Manager deployment."
 }
+*/
