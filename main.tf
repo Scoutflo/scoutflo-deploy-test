@@ -169,7 +169,7 @@ resource "aws_eks_addon" "coredns" {
   }
   depends_on = [module.eks]
   }
-
+/*
  # Deploy NGINX Ingress Controller
 resource "helm_release" "nginx_ingress" {
   name       = "nginx-ingress"
@@ -199,4 +199,4 @@ resource "helm_release" "cert_manager" {
 
   depends_on = [module.eks]
 }
-
+*/
