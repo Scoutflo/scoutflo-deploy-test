@@ -4,7 +4,7 @@
 provider "aws" {
   region = var.region
 }
-
+/*
 provider "kubernetes" {
   host                   = module.eks.cluster_endpoint
   cluster_ca_certificate = base64decode(module.eks.cluster_certificate_authority_data)
@@ -15,7 +15,7 @@ provider "kubernetes" {
     args        = ["eks", "get-token", "--cluster-name", local.cluster_name]
   }
 }
-
+*/
 
 # Filter out local zones, which are not currently supported 
 # with managed node groups
